@@ -82,7 +82,7 @@ public class AddEmployeeFragment extends Fragment {
         super.onStart();
         connectComponents() ;
     }
-
+//Hello
     private void connectComponents() {
         etId = getActivity().findViewById(R.id.etIdAddEmployee) ;
         etName = getActivity().findViewById(R.id.etNameAddEmployee) ;
