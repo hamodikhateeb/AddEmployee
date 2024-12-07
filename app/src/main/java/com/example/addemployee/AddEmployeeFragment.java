@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class AddEmployeeFragment extends Fragment {
 
+    private TextView tvEmployees ;
     private EditText etName , etDate , etEmail , etPhone , etCity , etId ;
     private Button btnAdd , btnRead ;
     private CheckBox chMale , chFemale ;
@@ -113,7 +115,7 @@ public class AddEmployeeFragment extends Fragment {
 
                 Employee employee = new Employee(date, name, id, email, phone, gender) ;
 
-                fbs.getFire().collection("Emloyees").add(employee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                fbs.getFire().collection("Employees").add(employee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(), "success!", Toast.LENGTH_SHORT).show();
@@ -126,5 +128,18 @@ public class AddEmployeeFragment extends Fragment {
                 }) ;
             }
         });
+        tvEmployees = getActivity().findViewById(R.id.tvShowAddEmployee);
+        tvEmployees.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotogotoAllEmployeesFragment();
+            }
+        });
+    }
+
+    private void gotogotoAllEmployeesFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameLayoutMain,new AllEmployeesFragment());
+        ft.commit();
     }
 }
